@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const createUserController = require('./controllers/createUserController')
 const listUsersController = require('./controllers/listUsersController')
+const listOneUserController = require('./controllers/listOneUserController')
+const updateUserController = require('./controllers/updateUserController')
 
 // Create - User
 router.post('/users', createUserController.handle)
@@ -10,6 +12,9 @@ router.post('/users', createUserController.handle)
 router.get('/users', listUsersController.handle)
 
 // Read - Get only one user -- /users/:id
+router.get('/users/:id', listOneUserController.handle)
 
+// Update - User
+router.post('/users/update/:id', updateUserController.handle)
 
 module.exports = router
