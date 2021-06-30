@@ -4,6 +4,7 @@ const createUserController = require('./controllers/createUserController')
 const listUsersController = require('./controllers/listUsersController')
 const listOneUserController = require('./controllers/listOneUserController')
 const updateUserController = require('./controllers/updateUserController')
+const deleteUserController = require('./controllers/deleteUserController')
 
 // Create - User
 router.post('/users', createUserController.handle)
@@ -16,5 +17,8 @@ router.get('/users/:id', listOneUserController.handle)
 
 // Update - User
 router.post('/users/update/:id', updateUserController.handle)
+
+// Delete - User
+router.delete('/users/:id', deleteUserController.handle)
 
 module.exports = router
