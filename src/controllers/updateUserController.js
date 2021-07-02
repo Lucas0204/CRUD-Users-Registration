@@ -4,10 +4,10 @@ const updateUserController = {
 
     handle: async (req, res) => {
 
-        const { id } = req.params
+        const { user_id } = req
         const newData = req.body
 
-        const updatedUser = await updateUserService.execute(id, newData)
+        const updatedUser = await updateUserService.execute(user_id, newData)
 
         return res.json(updatedUser)
     }

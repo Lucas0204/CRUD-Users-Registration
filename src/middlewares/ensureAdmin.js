@@ -14,9 +14,10 @@ const ensureAdmin = async (req, res, next) => {
         return next()
     }
 
-    
-
-    return res.json(admin)
+    return res.status(401).json({
+        status: 401,
+        error: 'Unauthorized!'
+    })
 }
 
 module.exports = ensureAdmin

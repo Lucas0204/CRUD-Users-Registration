@@ -12,18 +12,24 @@ const ensureAdmin = require('./middlewares/ensureAdmin')
 // Create - User
 router.post('/users', createUserController.handle)
 
-// Read - List users
-router.get('/users', listUsersController.handle)
-
+// Authenticate user - Generates a JWT token that should be used on protected routes, ie routes with 'ensure authenticated'
+// The token is taken via 'request / headers / authorization'
 router.post('/login', authenticateUserController.handle)
 
-// Read - Get only one user -- /users/:id
-router.get('/users/:id', listOneUserController.handle)
 
-// Update - User
-router.post('/users/update/:id', updateUserController.handle)
+// Read - List users -- Need to be logged in to access 
+router.get('/users', ensureAuthenticated, listUsersController.handle)
+
+// Read - Get only one user -- /users/:id
+router.get('/users/:id', ensureAuthenticated, listOneUserController.handle)
+
+
+// Update - User -- Id provided by ensure authenticated
+router.post('/users/update', ensureAuthenticated, updateUserController.handle)
+
 
 // Delete - User
+// To delete, the user must be authenticated and an admin
 router.delete('/users/:id', ensureAuthenticated, ensureAdmin, deleteUserController.handle)
 
 module.exports = router
