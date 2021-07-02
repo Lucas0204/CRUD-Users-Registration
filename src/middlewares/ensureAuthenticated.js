@@ -5,11 +5,17 @@ const ensureAuthenticated = (req, res, next) => {
 
     const authToken = req.headers.authorization
 
+    if (!authToken) {
+        return res.status(401).json({ error: 'Unauthorized!' })
+    }
+
     const token = authToken.split(' ')[1]
 
-    jwt.verify(token, process.env.JWT_SECRET)
+    const { sub } = jwt.verify(token, process.env.JWT_SECRET)
 
-    return res.send(token)
+    req.user_id = sub
+
+    return next()
 }
 
 module.exports = ensureAuthenticated

@@ -7,6 +7,7 @@ const updateUserController = require('./controllers/updateUserController')
 const deleteUserController = require('./controllers/deleteUserController')
 const authenticateUserController = require('./controllers/authenticateUserController')
 const ensureAuthenticated = require('./middlewares/ensureAuthenticated')
+const ensureAdmin = require('./middlewares/ensureAdmin')
 
 // Create - User
 router.post('/users', createUserController.handle)
@@ -23,6 +24,6 @@ router.get('/users/:id', listOneUserController.handle)
 router.post('/users/update/:id', updateUserController.handle)
 
 // Delete - User
-router.delete('/users/:id', ensureAuthenticated, deleteUserController.handle)
+router.delete('/users/:id', ensureAuthenticated, ensureAdmin, deleteUserController.handle)
 
 module.exports = router
