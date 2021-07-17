@@ -12,4 +12,7 @@
 
 - All tests were done through Insomnia, which makes requests for all methods.
 
+
+## - Example image
+
 ![Example image](https://github.com/Lucas0204/NodeJs-API-Users-Resgistration/blob/main/to_README/Node-API-Example.PNG)
