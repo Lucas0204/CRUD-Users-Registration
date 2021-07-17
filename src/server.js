@@ -8,6 +8,8 @@ const PORT = process.env.PORT || 3000
 app.use(express.json())
 app.use(routes)
 
+// Middleware that catches possible errors
+// Need 'express-async-errors' lib to do this
 app.use((err, req, res, next) => {
     if (err instanceof Error) {
         return res.status(400).json({
