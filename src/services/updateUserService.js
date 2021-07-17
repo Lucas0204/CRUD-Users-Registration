@@ -5,7 +5,7 @@ const updateUserService = {
 
     execute: async (id, newData) => {
 
-        const { name, email, password, oldPassword } = newData
+        const { name, email, password, currentPassword } = newData
 
         const user = await User.findOne({
             where: { id }
@@ -15,7 +15,7 @@ const updateUserService = {
             throw new Error('User is not found!')
         }
 
-        const passwordMatch = bcrypt.compareSync(oldPassword, user.password)
+        const passwordMatch = bcrypt.compareSync(currentPassword, user.password)
 
         if (!passwordMatch) {
             throw new Error('Error! Password incorrect!')
@@ -36,7 +36,9 @@ const updateUserService = {
             updateData.password = bcrypt.hashSync(password)
         }
 
-        const updatedUser = await user.update(updateData)
+        let updatedUser = await user.update(updateData)
+
+        updatedUser.password = undefined
 
         return updatedUser
     }

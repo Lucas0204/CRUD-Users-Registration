@@ -12,6 +12,8 @@ const listOneUserService = {
             throw new Error('Error! User is not found!')
         }
 
+        user.password = undefined
+
         return user
     }
 }

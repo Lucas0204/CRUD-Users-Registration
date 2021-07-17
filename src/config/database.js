@@ -2,8 +2,8 @@ module.exports = {
     dialect: 'mysql',
     host: 'localhost',
     username: 'root',
-    password: null,
-    database: 'api_register_node',
+    password: 'root',
+    database: 'users_registration_sequelize',
     define: {
         timestamp: true,
         underscored: true

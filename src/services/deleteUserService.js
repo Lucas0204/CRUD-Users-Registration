@@ -12,7 +12,9 @@ const deleteUserService = {
             throw new Error('User is not found!')
         }
 
-        const userDrop = await user.destroy()
+        let userDrop = await user.destroy()
+
+        userDrop.password = undefined
 
         return userDrop
     }
