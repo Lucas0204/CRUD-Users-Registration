@@ -11,3 +11,5 @@
 - For this project, I also used migrations, which do a versioning of the database, which makes it easier in case of errors.
 
 - All tests were done through Insomnia, which makes requests for all methods.
+
+![Example image](https://github.com/Lucas0204/NodeJs-API-Users-Resgistration/blob/main/to_README/Node-API-Example.PNG)
