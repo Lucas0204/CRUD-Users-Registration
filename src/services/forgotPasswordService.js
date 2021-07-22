@@ -17,10 +17,10 @@ const forgotPasswordService = {
         const token = crypto.randomBytes(20).toString('hex')
 
         const expires = new Date()
-        expires.setDate(expires.getHours() + 1)
+        expires.setHours(expires.getHours() + 1)
 
         try {
-            const updatedUser = await user.update({
+            await user.update({
                 password_reset_token: token, 
                 password_reset_expires: expires 
             })
@@ -29,10 +29,10 @@ const forgotPasswordService = {
                 from: `Lucas Zordan <209bd69ca807b3>`,
                 to: user.email,
                 subject: 'Recuperação de senha.',
-                text: 'Acesse este link para recuperar sua senha.'
+                text: `Esqueceu sua senha, use este token para definir uma nova: ${token}`
             })
     
-            return updatedUser
+            return mail
 
         } catch(err) {
             throw new Error(err.message)

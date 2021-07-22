@@ -7,6 +7,7 @@ const updateUserController = require('./controllers/updateUserController')
 const deleteUserController = require('./controllers/deleteUserController')
 const authenticateUserController = require('./controllers/authenticateUserController')
 const forgotPasswordController = require('./controllers/forgotPasswordController')
+const resetPasswordController = require('./controllers/resetPasswordController')
 const ensureAuthenticated = require('./middlewares/ensureAuthenticated')
 const ensureAdmin = require('./middlewares/ensureAdmin')
 
@@ -35,5 +36,7 @@ router.delete('/users/:id', ensureAuthenticated, ensureAdmin, deleteUserControll
 
 
 router.post('/forgot_password', forgotPasswordController.handle)
+
+router.post('/reset_password', resetPasswordController.handle)
 
 module.exports = router
