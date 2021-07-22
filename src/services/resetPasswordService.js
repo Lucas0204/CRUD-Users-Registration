@@ -2,7 +2,7 @@ const User = require('../models/User')
 const bcrypt = require('bcryptjs')
 
 const resetPasswordService = {
-    execute: async (email, token, newPassword) => {
+    execute: async (email, token, password) => {
 
         const user = await User.findOne({
             where: { email }
@@ -22,7 +22,7 @@ const resetPasswordService = {
             throw new Error('Token expires, generate a new one.')
         }
 
-        const passwordHash = bcrypt.hashSync(newPassword)
+        const passwordHash = bcrypt.hashSync(password)
 
         try {
             await user.update({ password: passwordHash })

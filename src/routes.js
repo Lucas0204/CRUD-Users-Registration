@@ -34,9 +34,10 @@ router.post('/users/update', ensureAuthenticated, updateUserController.handle)
 // To delete, the user must be authenticated and an admin
 router.delete('/users/:id', ensureAuthenticated, ensureAdmin, deleteUserController.handle)
 
-
+// This route sends an email with a token to be used in password recovery/reset
 router.post('/forgot_password', forgotPasswordController.handle)
 
+// Checks if there is a valid token in order to reset the password
 router.post('/reset_password', resetPasswordController.handle)
 
 module.exports = router

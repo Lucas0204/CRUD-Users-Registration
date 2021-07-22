@@ -3,9 +3,9 @@ const resetPasswordService = require('../services/resetPasswordService')
 const resetPasswordController = {
     handle: async (req, res) => {
 
-        const { email, token, newPassword } = req.body
+        const { email, token, password } = req.body
 
-        const user = await resetPasswordService.execute(email, token, newPassword)
+        const user = await resetPasswordService.execute(email, token, password)
         
         return res.json(user)
     }
