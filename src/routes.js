@@ -6,6 +6,7 @@ const listOneUserController = require('./controllers/listOneUserController')
 const updateUserController = require('./controllers/updateUserController')
 const deleteUserController = require('./controllers/deleteUserController')
 const authenticateUserController = require('./controllers/authenticateUserController')
+const forgotPasswordController = require('./controllers/forgotPasswordController')
 const ensureAuthenticated = require('./middlewares/ensureAuthenticated')
 const ensureAdmin = require('./middlewares/ensureAdmin')
 
@@ -31,5 +32,8 @@ router.post('/users/update', ensureAuthenticated, updateUserController.handle)
 // Delete - User
 // To delete, the user must be authenticated and an admin
 router.delete('/users/:id', ensureAuthenticated, ensureAdmin, deleteUserController.handle)
+
+
+router.post('/forgot_password', forgotPasswordController.handle)
 
 module.exports = router
