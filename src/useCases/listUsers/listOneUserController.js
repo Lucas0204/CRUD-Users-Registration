@@ -1,4 +1,4 @@
-const listOneUserService = require('../services/listOneUserService')
+const listOneUserService = require('./listOneUserService')
 
 const listOneUserController = {
 

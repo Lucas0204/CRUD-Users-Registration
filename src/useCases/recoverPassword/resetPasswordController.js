@@ -1,4 +1,4 @@
-const resetPasswordService = require('../services/resetPasswordService')
+const resetPasswordService = require('./resetPasswordService')
 
 const resetPasswordController = {
     handle: async (req, res) => {

@@ -1,4 +1,4 @@
-const authenticateUserService = require('../services/authenticateUserService')
+const authenticateUserService = require('./authenticateUserService')
 
 const authenticateUserController = {
 

@@ -1,6 +1,6 @@
 require('dotenv').config()
-const User = require('../models/User')
-const transporter = require('../modules/mailTransporter')
+const User = require('../../models/User')
+const transporter = require('../../modules/mailTransporter')
 const crypto = require('crypto')
 
 const forgotPasswordService = {
@@ -33,7 +33,6 @@ const forgotPasswordService = {
             })
     
             return mail
-
         } catch(err) {
             throw new Error(err.message)
         }

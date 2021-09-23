@@ -1,13 +1,12 @@
-const express = require('express')
-const router = express.Router()
-const createUserController = require('./controllers/createUserController')
-const listUsersController = require('./controllers/listUsersController')
-const listOneUserController = require('./controllers/listOneUserController')
-const updateUserController = require('./controllers/updateUserController')
-const deleteUserController = require('./controllers/deleteUserController')
-const authenticateUserController = require('./controllers/authenticateUserController')
-const forgotPasswordController = require('./controllers/forgotPasswordController')
-const resetPasswordController = require('./controllers/resetPasswordController')
+const router = require('express').Router()
+const createUserController = require('./useCases/createUser/createUserController')
+const listUsersController = require('./useCases/listUsers/listUsersController')
+const listOneUserController = require('./useCases/listUsers/listOneUserController')
+const updateUserController = require('./useCases/updateUser/updateUserController')
+const deleteUserController = require('./useCases/deleteUser/deleteUserController')
+const authenticateUserController = require('./useCases/authenticateUser/authenticateUserController')
+const forgotPasswordController = require('./useCases/recoverPassword/forgotPasswordController')
+const resetPasswordController = require('./useCases/recoverPassword/resetPasswordController')
 const ensureAuthenticated = require('./middlewares/ensureAuthenticated')
 const ensureAdmin = require('./middlewares/ensureAdmin')
 
@@ -20,10 +19,10 @@ router.post('/login', authenticateUserController.handle)
 
 
 // Read - List users -- Need to be logged in to access 
-router.get('/users', ensureAuthenticated, listUsersController.handle)
+router.get('/users', ensureAuthenticated, ensureAdmin, listUsersController.handle)
 
 // Read - Get only one user -- /users/:id
-router.get('/users/:id', ensureAuthenticated, listOneUserController.handle)
+router.get('/users/:id', ensureAuthenticated, ensureAdmin, listOneUserController.handle)
 
 
 // Update - User -- Id provided by ensure authenticated

@@ -1,4 +1,4 @@
-const updateUserService = require('../services/updateUserService')
+const updateUserService = require('./updateUserService')
 
 const updateUserController = {
 

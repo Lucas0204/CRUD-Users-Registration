@@ -1,4 +1,4 @@
-const forgotPasswordService = require('../services/forgotPasswordService')
+const forgotPasswordService = require('./forgotPasswordService')
 
 const forgotPasswordController = {
     handle: async (req, res) => {

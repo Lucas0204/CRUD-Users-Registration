@@ -1,4 +1,4 @@
-const deleteUserService = require('../services/deleteUserService')
+const deleteUserService = require('./deleteUserService')
 
 const deleteUserController = {
 

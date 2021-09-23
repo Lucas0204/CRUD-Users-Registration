@@ -1,4 +1,4 @@
-const createUserService = require('../services/createUserService')
+const createUserService = require('./createUserService')
 
 const createUserController = {
 
