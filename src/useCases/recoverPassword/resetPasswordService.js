@@ -1,9 +1,9 @@
 const User = require('../../models/User')
 const bcrypt = require('bcryptjs')
 
-const resetPasswordService = {
-    execute: async (email, token, password) => {
+class ResetPasswordService {
 
+    static async execute (email, token, password) {
         const user = await User.findOne({
             where: { email }
         })
@@ -38,4 +38,4 @@ const resetPasswordService = {
     }
 }
 
-module.exports = resetPasswordService
+module.exports = ResetPasswordService

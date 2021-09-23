@@ -1,8 +1,8 @@
 const deleteUserService = require('./deleteUserService')
 
-const deleteUserController = {
+class DeleteUserController {
 
-    handle: async (req, res) => {
+    static async handle(req, res) {
 
         const { id } = req.params
 
@@ -12,4 +12,4 @@ const deleteUserController = {
     }
 }
 
-module.exports = deleteUserController
+module.exports = DeleteUserController

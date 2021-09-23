@@ -1,8 +1,8 @@
 const resetPasswordService = require('./resetPasswordService')
 
-const resetPasswordController = {
-    handle: async (req, res) => {
+class ResetPasswordController {
 
+    static async handle (req, res) {
         const { email, token, password } = req.body
 
         const user = await resetPasswordService.execute(email, token, password)
@@ -11,4 +11,4 @@ const resetPasswordController = {
     }
 }
 
-module.exports = resetPasswordController
+module.exports = ResetPasswordController

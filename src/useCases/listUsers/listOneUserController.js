@@ -1,9 +1,8 @@
 const listOneUserService = require('./listOneUserService')
 
-const listOneUserController = {
+class ListOneUserController {
 
-    handle: async (req, res) => {
-
+    static async handle(req, res) {
         const { id } = req.params
 
         const user = await listOneUserService.execute(id)
@@ -12,4 +11,4 @@ const listOneUserController = {
     }
 }
 
-module.exports = listOneUserController
+module.exports = ListOneUserController

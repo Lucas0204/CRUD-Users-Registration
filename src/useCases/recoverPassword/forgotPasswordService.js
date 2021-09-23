@@ -3,9 +3,9 @@ const User = require('../../models/User')
 const transporter = require('../../modules/mailTransporter')
 const crypto = require('crypto')
 
-const forgotPasswordService = {
-    execute: async (email) => {
+class ForgotPasswordService {
 
+    static async execute (email) {
         const user = await User.findOne({
             where: { email }
         })
@@ -15,7 +15,6 @@ const forgotPasswordService = {
         }
 
         const token = crypto.randomBytes(20).toString('hex')
-
         const expires = new Date()
         expires.setHours(expires.getHours() + 1)
 
@@ -40,4 +39,4 @@ const forgotPasswordService = {
     }
 }
 
-module.exports = forgotPasswordService
+module.exports = ForgotPasswordService

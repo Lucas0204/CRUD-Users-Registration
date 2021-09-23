@@ -1,8 +1,8 @@
 const authenticateUserService = require('./authenticateUserService')
 
-const authenticateUserController = {
+class AuthenticateUserController {
 
-    handle: async (req, res) => {
+    static async handle(req, res) {
         const { email, password } = req.body
 
         const userToken = await authenticateUserService.execute({ email, password })
@@ -11,4 +11,4 @@ const authenticateUserController = {
     }
 }
 
-module.exports = authenticateUserController
+module.exports = AuthenticateUserController

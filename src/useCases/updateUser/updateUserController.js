@@ -1,9 +1,8 @@
 const updateUserService = require('./updateUserService')
 
-const updateUserController = {
+class UpdateUserController {
 
-    handle: async (req, res) => {
-
+    static async handle(req, res) {
         const { user_id } = req
         const newData = req.body
 
@@ -13,4 +12,4 @@ const updateUserController = {
     }
 }
 
-module.exports = updateUserController
+module.exports = UpdateUserController

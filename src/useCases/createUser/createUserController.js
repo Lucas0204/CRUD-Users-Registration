@@ -1,8 +1,8 @@
 const createUserService = require('./createUserService')
 
-const createUserController = {
+class CreateUserController {
 
-    handle: async (req, res) => {
+    static async handle(req, res) {
         const { name, email, password, admin } = req.body
 
         const user = await createUserService.execute({ name, email, password, admin })
@@ -11,4 +11,4 @@ const createUserController = {
     }
 }
 
-module.exports = createUserController
+module.exports = CreateUserController

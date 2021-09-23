@@ -1,13 +1,12 @@
 const listUsersService = require('./listUsersService')
 
-const listUsersController = {
+class ListUsersController {
 
-    handle: async (req, res) => {
-
+    static async handle(req, res) {
         const users = await listUsersService.execute()
 
         return res.json(users)
     }
 }
 
-module.exports = listUsersController
+module.exports = ListUsersController

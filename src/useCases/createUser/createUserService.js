@@ -1,9 +1,9 @@
 const User = require('../../models/User')
 const bcrypt = require('bcryptjs')
 
-const createUserService = {
+class CreateUserService {
 
-    execute: async (data) => {
+    static async execute(data) {
         const { name, email, password, admin } = data
 
         const emailAlreadyExists = await User.findOne({
@@ -24,4 +24,4 @@ const createUserService = {
     }
 }
 
-module.exports = createUserService
+module.exports = CreateUserService

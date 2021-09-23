@@ -1,9 +1,8 @@
 const User = require('../../models/User')
 
-const listOneUserService = {
+class ListOneUserService {
 
-    execute: async (id) => {
-
+    static async execute(id) {
         const user = await User.findOne({
             where: { id }
         })
@@ -18,4 +17,4 @@ const listOneUserService = {
     }
 }
 
-module.exports = listOneUserService
+module.exports = ListOneUserService

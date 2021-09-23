@@ -1,9 +1,8 @@
 const User = require('../../models/User')
 
-const listUsersService = {
+class ListUsersService {
 
-    execute: async () => {
-        
+    static async execute() {
         let users = await User.findAll()
         
         if (users) {
@@ -25,4 +24,4 @@ const listUsersService = {
     }
 }
 
-module.exports = listUsersService
+module.exports = ListUsersService

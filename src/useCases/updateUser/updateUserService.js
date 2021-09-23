@@ -1,10 +1,9 @@
 const User = require('../../models/User')
 const bcrypt = require('bcryptjs')
 
-const updateUserService = {
+class UpdateUserService {
 
-    execute: async (id, newData) => {
-
+    static async execute(id, newData) {
         const { name, email, password, currentPassword } = newData
 
         const user = await User.findOne({
@@ -44,4 +43,4 @@ const updateUserService = {
     }
 }
 
-module.exports = updateUserService
+module.exports = UpdateUserService

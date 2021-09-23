@@ -1,7 +1,8 @@
 const forgotPasswordService = require('./forgotPasswordService')
 
-const forgotPasswordController = {
-    handle: async (req, res) => {
+class ForgotPasswordController {
+
+    static async handle (req, res) {
         const { email } = req.body
 
         const mail = await forgotPasswordService.execute(email)
@@ -10,4 +11,4 @@ const forgotPasswordController = {
     }
 }
 
-module.exports = forgotPasswordController
+module.exports = ForgotPasswordController

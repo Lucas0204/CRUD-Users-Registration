@@ -1,9 +1,8 @@
 const User = require('../../models/User')
 
-const deleteUserService = {
+class DeleteUserService {
 
-    execute: async (id) => {
-
+    static async execute(id) {
         const user = await User.findOne({
             where: { id }
         })
@@ -20,4 +19,4 @@ const deleteUserService = {
     }
 }
 
-module.exports = deleteUserService
+module.exports = DeleteUserService
