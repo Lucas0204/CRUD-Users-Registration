@@ -1,21 +1,30 @@
-const User = require('../../models/User')
+const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
 
 class DeleteUserService {
 
     static async execute(id) {
-        const user = await User.findOne({
-            where: { id }
+        const user = await prisma.users.findUnique({
+            where: { id: parseInt(id) }
         })
 
         if (!user) {
             throw new Error('User is not found!')
         }
 
-        let userDrop = await user.destroy()
+        try {
+            await prisma.users.delete({
+                where: { id: parseInt(id) }
+            })
 
-        userDrop.password = undefined
+            const res = {
+                status: 'Deleted successfully!'
+            }
 
-        return userDrop
+            return res
+        } catch(err) {
+            throw new Error('Cannot delete user. Try again.')
+        }
     }
 }
 

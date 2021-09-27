@@ -1,4 +1,5 @@
-const User = require('../../models/User')
+const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
 const bcrypt = require('bcryptjs')
 
 class CreateUserService {
@@ -6,7 +7,7 @@ class CreateUserService {
     static async execute(data) {
         const { name, email, password, admin } = data
 
-        const emailAlreadyExists = await User.findOne({
+        const emailAlreadyExists = await prisma.users.findUnique({
             where: { email }
         })
 
@@ -16,7 +17,14 @@ class CreateUserService {
 
         const passwordHash = bcrypt.hashSync(password)
 
-        const user = await User.create({ name, email, password: passwordHash, admin })
+        const user = await prisma.users.create({
+            data: { 
+                name, 
+                email, 
+                password: passwordHash, 
+                admin 
+            }
+        })
 
         user.password = undefined
 

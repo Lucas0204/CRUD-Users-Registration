@@ -1,10 +1,11 @@
-const User = require('../../models/User')
+const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
 
 class ListOneUserService {
 
     static async execute(id) {
-        const user = await User.findOne({
-            where: { id }
+        const user = await prisma.users.findUnique({
+            where: { id: parseInt(id) }
         })
 
         if (!user) {

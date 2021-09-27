@@ -1,4 +1,5 @@
-const User = require('../../models/User')
+const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
 const bcrypt = require('bcryptjs')
 
 class UpdateUserService {
@@ -6,8 +7,8 @@ class UpdateUserService {
     static async execute(id, newData) {
         const { name, email, password, currentPassword } = newData
 
-        const user = await User.findOne({
-            where: { id }
+        const user = await prisma.users.findUnique({
+            where: { id: parseInt(id) }
         })
 
         if (!user) {
@@ -35,7 +36,10 @@ class UpdateUserService {
             updateData.password = bcrypt.hashSync(password)
         }
 
-        let updatedUser = await user.update(updateData)
+        let updatedUser = await prisma.users.update({
+            where: { id: parseInt(id) },
+            data: updateData
+        })
 
         updatedUser.password = undefined
 

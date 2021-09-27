@@ -1,10 +1,11 @@
-const User = require('../../models/User')
+const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
 const bcrypt = require('bcryptjs')
 
 class ResetPasswordService {
 
     static async execute (email, token, password) {
-        const user = await User.findOne({
+        const user = await prisma.users.findUnique({
             where: { email }
         })
 
@@ -25,7 +26,10 @@ class ResetPasswordService {
         const passwordHash = bcrypt.hashSync(password)
 
         try {
-            await user.update({ password: passwordHash })
+            await prisma.users.update({
+                where: { email },
+                data: { password: passwordHash }
+            })
         } catch(err) {
             throw new Error(err.message)
         }

@@ -1,5 +1,6 @@
 require('dotenv').config()
-const User = require('../../models/User')
+const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
 const { compareSync } = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
@@ -12,7 +13,7 @@ class AuthenticateUser {
             throw new Error('Invalid credentials!')
         }
 
-        const user = await User.findOne({
+        const user = await prisma.users.findUnique({
             where: { email }
         })
 

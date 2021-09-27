@@ -1,23 +1,23 @@
 {
-  "name": "CRUD-users-registration",
+  "name": "Login-System",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon src/server.js"
+    "dev": "nodemon src/server.js"
   },
   "dependencies": {
+    "@prisma/client": "^3.1.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.2.5",
-    "nodemailer": "^6.6.3",
-    "sequelize": "^6.6.4"
+    "nodemailer": "^6.6.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.8",
-    "sequelize-cli": "^6.2.0"
+    "prisma": "^3.1.1"
   }
 }

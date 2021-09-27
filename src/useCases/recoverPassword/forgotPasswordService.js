@@ -1,12 +1,13 @@
 require('dotenv').config()
-const User = require('../../models/User')
+const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
 const transporter = require('../../modules/mailTransporter')
 const crypto = require('crypto')
 
 class ForgotPasswordService {
 
     static async execute (email) {
-        const user = await User.findOne({
+        const user = await prisma.users.findUnique({
             where: { email }
         })
 
@@ -19,9 +20,12 @@ class ForgotPasswordService {
         expires.setHours(expires.getHours() + 1)
 
         try {
-            await user.update({
-                password_reset_token: token, 
-                password_reset_expires: expires 
+            await prisma.users.update({
+                where: { email },
+                data: {
+                    password_reset_token: token, 
+                    password_reset_expires: expires 
+                }
             })
 
             const mail = await transporter.sendMail({
@@ -35,7 +39,6 @@ class ForgotPasswordService {
         } catch(err) {
             throw new Error(err.message)
         }
-
     }
 }
 
