@@ -1,6 +1,5 @@
 require('dotenv').config()
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
+const prisma = require('../../database/prisma')
 const { compareSync } = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
