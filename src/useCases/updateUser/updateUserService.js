@@ -1,4 +1,4 @@
-const prisma = require('../../database/prisma')
+const User = require('../../model/User')
 const bcrypt = require('bcryptjs')
 
 class UpdateUserService {
@@ -6,9 +6,7 @@ class UpdateUserService {
     static async execute(id, newData) {
         const { name, email, password, currentPassword } = newData
 
-        const user = await prisma.users.findUnique({
-            where: { id: parseInt(id) }
-        })
+        const user = await User.getSingleUser({ id })
 
         if (!user) {
             throw new Error('User is not found!')
@@ -23,20 +21,14 @@ class UpdateUserService {
         // See what will be updated
         let updateData = {}
 
-        if (name) {
-            updateData.name = name
-        }
+        if (name) updateData.name = name
 
-        if (email) {
-            updateData.email = email
-        }
+        if (email) updateData.email = email
 
-        if (password) {
-            updateData.password = bcrypt.hashSync(password)
-        }
+        if (password) updateData.password = bcrypt.hashSync(password)
 
-        let updatedUser = await prisma.users.update({
-            where: { id: parseInt(id) },
+        let updatedUser = await User.update({
+            where: { id },
             data: updateData
         })
 

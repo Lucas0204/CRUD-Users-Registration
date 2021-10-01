@@ -6,7 +6,7 @@ class DeleteUserController {
 
         const { id } = req.params
 
-        const userDrop = await deleteUserService.execute(id)
+        const userDrop = await deleteUserService.execute(parseInt(id))
 
         return res.json(userDrop)
     }

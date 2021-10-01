@@ -1,9 +1,9 @@
-const prisma = require('../../database/prisma')
+const User = require('../../model/User')
 
 class ListUsersService {
 
     static async execute() {
-        let users = await prisma.users.findMany()
+        let users = await User.getAllUsers()
 
         if (users) {
             users = users.map(user => {

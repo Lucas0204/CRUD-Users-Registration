@@ -1,11 +1,9 @@
-const prisma = require('../../database/prisma')
+const User = require('../../model/User')
 
 class ListOneUserService {
 
     static async execute(id) {
-        const user = await prisma.users.findUnique({
-            where: { id: parseInt(id) }
-        })
+        const user = await User.getSingleUser({ id })
 
         if (!user) {
             throw new Error('Error! User is not found!')

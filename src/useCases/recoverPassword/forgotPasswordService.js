@@ -1,14 +1,13 @@
 require('dotenv').config()
 const prisma = require('../../database/prisma')
+const User = require('../../model/User')
 const transporter = require('../../modules/mailTransporter')
 const crypto = require('crypto')
 
 class ForgotPasswordService {
 
-    static async execute (email) {
-        const user = await prisma.users.findUnique({
-            where: { email }
-        })
+    static async execute(email) {
+        const user = await User.getSingleUser({ email })
 
         if (!user) {
             throw new Error('User is not found!')
@@ -19,7 +18,7 @@ class ForgotPasswordService {
         expires.setHours(expires.getHours() + 1)
 
         try {
-            await prisma.users.update({
+            await User.update({
                 where: { email },
                 data: {
                     password_reset_token: token, 

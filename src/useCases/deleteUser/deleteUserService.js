@@ -1,20 +1,16 @@
-const prisma = require('../../database/prisma')
+const User = require('../../model/User')
 
 class DeleteUserService {
 
     static async execute(id) {
-        const user = await prisma.users.findUnique({
-            where: { id: parseInt(id) }
-        })
+        const user = await User.getSingleUser({ id })
 
         if (!user) {
             throw new Error('User is not found!')
         }
 
         try {
-            await prisma.users.delete({
-                where: { id: parseInt(id) }
-            })
+            await User.delete(id)
 
             const res = {
                 status: 'Deleted successfully!'
@@ -22,7 +18,7 @@ class DeleteUserService {
 
             return res
         } catch(err) {
-            throw new Error('Cannot delete user. Try again.')
+            throw new Error(err.message)
         }
     }
 }
