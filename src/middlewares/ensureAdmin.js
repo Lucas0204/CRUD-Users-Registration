@@ -1,12 +1,10 @@
-const prisma = require('../database/prisma')
+const User = require('../model/User')
 
 const ensureAdmin = async (req, res, next) => {
 
-    const { user_id } = req
+    const id = parseInt(req.user_id)
 
-    const user = await prisma.users.findUnique({
-        where: { id: parseInt(user_id) }
-    })
+    const user = await User.getSingleUser({ id })
 
     const admin = user.admin ? true : false
 
