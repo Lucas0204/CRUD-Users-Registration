@@ -1,7 +1,6 @@
 require('dotenv').config()
-const prisma = require('../../database/prisma')
 const User = require('../../model/User')
-const transporter = require('../../modules/mailTransporter')
+const Queue = require('../../modules/Queue')
 const crypto = require('crypto')
 
 class ForgotPasswordService {
@@ -26,14 +25,14 @@ class ForgotPasswordService {
                 }
             })
 
-            const mail = await transporter.sendMail({
-                from: `Lucas Zordan <209bd69ca807b3>`,
-                to: user.email,
-                subject: 'Recuperação de senha.',
-                text: `Esqueceu sua senha, use este token para definir uma nova: ${token}`
-            })
+            Queue.add('ForgotPasswordMail', { user, token })
+
+            const res = {
+                status: 200,
+                message: "An email was sent to you, please verify your account. If you didn't receive it, check if the email is correct and try again."
+            }
     
-            return mail
+            return res
         } catch(err) {
             throw new Error(err.message)
         }
