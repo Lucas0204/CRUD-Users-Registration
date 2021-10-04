@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "npm-run-all -p dev:*",
     "dev:server": "nodemon src/server.js",
-    "dev:queue": "nodemon src/queue.js"
+    "dev:queue": "nodemon src/queue.js",
+    "test": "npx jest --runInBand"
   },
   "dependencies": {
     "@prisma/client": "^3.1.1",
@@ -20,6 +21,7 @@
     "nodemailer": "^6.6.3"
   },
   "devDependencies": {
+    "jest": "^27.2.4",
     "nodemon": "^2.0.8",
     "npm-run-all": "^4.1.5",
     "prisma": "^3.1.1"
