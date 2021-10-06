@@ -2,9 +2,12 @@ const User = require('../../model/User')
 const bcrypt = require('bcryptjs')
 
 class UpdateUserService {
+    constructor(currentPassword) {
+        this.currentPassword = currentPassword
+    }
 
-    static async execute(id, newData) {
-        const { name, email, password, currentPassword } = newData
+    async execute(id, newData) {
+        const { name, email, password } = newData
 
         const user = await User.getSingleUser({ id })
 
@@ -12,9 +15,7 @@ class UpdateUserService {
             throw new Error('User is not found!')
         }
 
-        const passwordMatch = bcrypt.compareSync(currentPassword, user.password)
-
-        if (!passwordMatch) {
+        if (!this.passwordMatch(user.password)) {
             throw new Error('Error! Password incorrect!')
         }
 
@@ -35,6 +36,11 @@ class UpdateUserService {
         updatedUser.password = undefined
 
         return updatedUser
+    }
+
+    passwordMatch(password) {
+        const passwordMatch = bcrypt.compareSync(this.currentPassword, password)
+        return passwordMatch
     }
 }
 
