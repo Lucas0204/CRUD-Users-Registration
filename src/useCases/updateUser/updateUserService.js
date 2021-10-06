@@ -7,8 +7,6 @@ class UpdateUserService {
     }
 
     async execute(id, newData) {
-        const { name, email, password } = newData
-
         const user = await User.getSingleUser({ id })
 
         if (!user) {
@@ -19,14 +17,7 @@ class UpdateUserService {
             throw new Error('Error! Password incorrect!')
         }
 
-        // See what will be updated
-        let updateData = {}
-
-        if (name) updateData.name = name
-
-        if (email) updateData.email = email
-
-        if (password) updateData.password = bcrypt.hashSync(password)
+        const updateData = this.getWhatWillBeUpdated(newData)
 
         let updatedUser = await User.update({
             where: { id },
@@ -41,6 +32,19 @@ class UpdateUserService {
     passwordMatch(password) {
         const passwordMatch = bcrypt.compareSync(this.currentPassword, password)
         return passwordMatch
+    }
+
+    getWhatWillBeUpdated(data) {
+        const { name, email, password } = data
+        let updateData = {}
+
+        if (name) updateData.name = name
+
+        if (email) updateData.email = email
+
+        if (password) updateData.password = bcrypt.hashSync(password)
+
+        return updateData
     }
 }
 
