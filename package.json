@@ -7,7 +7,8 @@
     "dev": "npm-run-all -p dev:*",
     "dev:server": "nodemon src/server.js",
     "dev:queue": "nodemon src/queue.js",
-    "test": "npx jest --runInBand"
+    "test": "npx jest --runInBand",
+    "test:cov": "npx jest --runInBand --coverage"
   },
   "dependencies": {
     "@prisma/client": "^3.1.1",
