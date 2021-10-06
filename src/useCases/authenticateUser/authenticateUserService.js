@@ -3,7 +3,7 @@ const User = require('../../model/User')
 const { compareSync } = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-class AuthenticateUser {
+class authenticateUserService {
 
     static async execute(userData) {
         const { email, password } = userData
@@ -37,4 +37,4 @@ class AuthenticateUser {
     }
 }
 
-module.exports = AuthenticateUser
+module.exports = authenticateUserService
