@@ -31,7 +31,7 @@ describe('List users service test suite', () => {
         expect(users).toStrictEqual(mockUsers)
     })
 
-    test('should throw an exception', async () => {
+    test('should throw an exception of no users found', async () => {
         mock.spyOn(User, User.getAllUsers.name)
             .mockResolvedValue(false)
 
