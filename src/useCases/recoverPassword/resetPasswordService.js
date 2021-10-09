@@ -8,15 +8,17 @@ class ResetPasswordService {
     }
 
     async execute(newPassword) {
-        const { 
-            password_reset_token: resetPasswordToken, 
-            password_reset_expires: expirationTime, 
-            ...user 
-        } = await User.getSingleUser({ email: this.email })
+        const user = await User.getSingleUser({ email: this.email })
 
         if (!user) {
             throw new Error('User is not found!')
         }
+
+        const { 
+            password_reset_token: resetPasswordToken, 
+            password_reset_expires: expirationTime, 
+            ...userData 
+        } = user
 
         if (!this.tokenMatch(resetPasswordToken)) {
             throw new Error('Invalid token!')
@@ -28,9 +30,9 @@ class ResetPasswordService {
 
         await this.updateUserWithNewPassword(newPassword)
 
-        user.password = undefined
+        userData.password = undefined
 
-        return user 
+        return userData 
     }
 
     tokenMatch(resetPasswordToken) {
