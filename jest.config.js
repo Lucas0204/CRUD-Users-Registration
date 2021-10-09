@@ -23,6 +23,8 @@ module.exports = {
   collectCoverageFrom: [
     "src/**/*.js",
     "!src/**/queue.js",
+    "!src/**/routes.js",
+    "!src/**/server.js",
     "!src/**/database/*.js",
     "!src/**/config/*.js",
     "!src/**/jobs/*.js",

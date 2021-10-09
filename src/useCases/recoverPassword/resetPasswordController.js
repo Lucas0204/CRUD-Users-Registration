@@ -1,11 +1,13 @@
-const resetPasswordService = require('./resetPasswordService')
+const ResetPasswordService = require('./resetPasswordService')
 
 class ResetPasswordController {
 
     static async handle(req, res) {
-        const { email, token, password } = req.body
+        const { email, token, password: newPassword } = req.body
 
-        const user = await resetPasswordService.execute(email, token, password)
+        const resetPasswordService = new ResetPasswordService(email, token)
+
+        const user = await resetPasswordService.execute(newPassword)
         
         return res.json(user)
     }
