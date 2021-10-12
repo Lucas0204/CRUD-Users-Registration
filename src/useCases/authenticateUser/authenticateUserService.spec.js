@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const { describe, test, expect, jest: mock } = require('@jest/globals')
-const authenticateUserService = require('./authenticateUserService')
+const AuthenticateUserService = require('./authenticateUserService')
 const User = require('../../model/User')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
@@ -27,12 +27,8 @@ describe('Authenticate user service test suite', () => {
         mock.spyOn(User, User.getSingleUser.name)
             .mockResolvedValue(mockUser)
 
-        const data = {
-            email: mockUser.email,
-            password
-        }
-
-        const token = await authenticateUserService.execute(data)
+        const authenticateUserService = new AuthenticateUserService(mockUser.email, password)
+        const token = await authenticateUserService.execute()
 
         const verifiedToken = jwt.verify(token, process.env.JWT_SECRET)
 
@@ -45,7 +41,8 @@ describe('Authenticate user service test suite', () => {
         let response;
         
         try {
-            response = await authenticateUserService.execute({})
+            const authenticateUserService = new AuthenticateUserService()
+            response = await authenticateUserService.execute()
         } catch(err) {
             expect(err).toBeInstanceOf(Error)
             expect(err.message).toBe('Invalid credentials!')
@@ -54,19 +51,43 @@ describe('Authenticate user service test suite', () => {
         expect(response).toBe(undefined)
     })
 
-    test('should throw an exception of email incorrect / user not exists', async () => {
-        const data = {
-            email: 'any@thing.com',
-            password: 'test123'
-        }
+    test('should throw an exception of email incorrect', async () => {
+        const email = 'any@thing.com'
+        const password = 'test123'
 
         mock.spyOn(User, User.getSingleUser.name)
             .mockResolvedValue(null)
+        
+        const authenticateUserService = new AuthenticateUserService(email, password)
 
         let response;
         
         try {
-            response = await authenticateUserService.execute(data)
+            response = await authenticateUserService.execute()
+        } catch(err) {
+            expect(err).toBeInstanceOf(Error)
+            expect(err.message).toBe('Email/Password incorrect!')
+        }
+
+        expect(response).toBe(undefined)
+    })
+
+    test('should throw an exception of password incorrect', async () => {
+        const email = 'any@thing.com'
+        const password = 'test123'
+
+        const authenticateUserService = new AuthenticateUserService(email, password)
+
+        mock.spyOn(User, User.getSingleUser.name)
+            .mockResolvedValue(true)
+
+        mock.spyOn(authenticateUserService, authenticateUserService.passwordMatch.name)
+            .mockReturnValue(false)
+
+        let response;
+            
+        try {
+            response = await authenticateUserService.execute()
         } catch(err) {
             expect(err).toBeInstanceOf(Error)
             expect(err.message).toBe('Email/Password incorrect!')
