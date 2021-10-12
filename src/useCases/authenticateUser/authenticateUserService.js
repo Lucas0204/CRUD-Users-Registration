@@ -4,32 +4,41 @@ const { compareSync } = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 class authenticateUserService {
+    constructor(email, password) {
+        if (!email || !password) throw new Error('Invalid credentials!')
 
-    static async execute(userData) {
-        const { email, password } = userData
-        
-        if (!email) {
-            throw new Error('Invalid credentials!')
-        }
+        this.email = email
+        this.password = password
+    }
 
-        const user = await User.getSingleUser({ email })
+    async execute() {
+        const user = await User.getSingleUser({ email: this.email })
 
         if (!user) {
             throw new Error('Email/Password incorrect!')
         }
 
-        const passwordMatch = compareSync(password, user.password)
-
-        if (!passwordMatch) {
+        if (!this.passwordMatch(user.password)) {
             throw new Error('Email/Password incorrect!')
         }
 
+        const token = this.generateToken(user.id)
+
+        return token
+    }
+
+    passwordMatch(userPassword) {
+        const passwordMatch = compareSync(this.password, userPassword)
+        return passwordMatch
+    }
+
+    generateToken(userId) {
         const token = jwt.sign({
-            email: user.email
+            email: this.email
         }, 
         process.env.JWT_SECRET,
         {
-            subject: (user.id).toString(),
+            subject: (userId).toString(),
             expiresIn: '1d'
         })
 

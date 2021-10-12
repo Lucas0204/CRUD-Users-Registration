@@ -1,11 +1,13 @@
-const authenticateUserService = require('./authenticateUserService')
+const AuthenticateUserService = require('./authenticateUserService')
 
 class AuthenticateUserController {
 
     static async handle(req, res) {
         const { email, password } = req.body
 
-        const userToken = await authenticateUserService.execute({ email, password })
+        const authenticateUserService = new AuthenticateUserService(email, password)
+
+        const userToken = await authenticateUserService.execute()
 
         return res.json(userToken)
     }
