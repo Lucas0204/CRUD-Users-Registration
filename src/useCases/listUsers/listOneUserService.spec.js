@@ -38,6 +38,6 @@ describe('List one user service test suite', () => {
             expect(err.message).toBe('Error! User is not found!')
         }
 
-        expect(response).toBe(undefined)
+        expect(response).toBeUndefined()
     })
 })

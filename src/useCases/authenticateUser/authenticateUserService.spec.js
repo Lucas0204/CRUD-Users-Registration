@@ -48,7 +48,7 @@ describe('Authenticate user service test suite', () => {
             expect(err.message).toBe('Invalid credentials!')
         }
 
-        expect(response).toBe(undefined)
+        expect(response).toBeUndefined()
     })
 
     test('should throw an exception of email incorrect', async () => {
@@ -69,7 +69,7 @@ describe('Authenticate user service test suite', () => {
             expect(err.message).toBe('Email/Password incorrect!')
         }
 
-        expect(response).toBe(undefined)
+        expect(response).toBeUndefined()
     })
 
     test('should throw an exception of password incorrect', async () => {
@@ -93,6 +93,6 @@ describe('Authenticate user service test suite', () => {
             expect(err.message).toBe('Email/Password incorrect!')
         }
 
-        expect(response).toBe(undefined)
+        expect(response).toBeUndefined()
     })
 })

@@ -45,7 +45,7 @@ describe('Forgot password service test suite', () => {
             expect(err.message).toBe('User is not found!')
         }
 
-        expect(response).toBe(undefined)
+        expect(response).toBeUndefined()
     })
 
     test('should throw an error when update fields of recover password of user', async () => {
@@ -68,6 +68,6 @@ describe('Forgot password service test suite', () => {
             expect(err.message).toBe('There was an error accessing database!')
         }
 
-        expect(response).toBe(undefined)
+        expect(response).toBeUndefined()
     })
 })

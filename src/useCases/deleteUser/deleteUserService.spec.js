@@ -33,7 +33,7 @@ describe('Delete user service test suite', () => {
             expect(err.message).toBe('User is not found!')
         }
 
-        expect(response).toBe(undefined)
+        expect(response).toBeUndefined()
     })
 
     test('should throw an exception when deleting the user', async () => {
@@ -54,6 +54,6 @@ describe('Delete user service test suite', () => {
             expect(err.message).toBe('There was an error accessing database!')
         }
 
-        expect(response).toBe(undefined)
+        expect(response).toBeUndefined()
     })
 })

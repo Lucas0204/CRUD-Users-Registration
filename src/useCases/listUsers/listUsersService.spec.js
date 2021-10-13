@@ -28,6 +28,7 @@ describe('List users service test suite', () => {
 
         const users = await listUsersService.execute()
 
+        expect(User.getAllUsers).toHaveBeenCalled()
         expect(users).toStrictEqual(mockUsers)
     })
 
@@ -44,6 +45,6 @@ describe('List users service test suite', () => {
             expect(err.message).toBe('Error! No users found!')
         }
 
-        expect(response).toBe(undefined)
+        expect(response).toBeUndefined()
     })
 })

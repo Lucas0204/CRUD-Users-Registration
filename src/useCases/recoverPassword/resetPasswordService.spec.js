@@ -51,7 +51,7 @@ describe('Reset password service test suite', () => {
             expect(err.message).toBe('User is not found!')
         }
 
-        expect(response).toBe(undefined)
+        expect(response).toBeUndefined()
     })
 
     test('should throw an exception of invalid token', async () => {
@@ -83,7 +83,7 @@ describe('Reset password service test suite', () => {
             expect(err.message).toBe('Invalid token!')
         }
 
-        expect(response).toBe(undefined)
+        expect(response).toBeUndefined()
     })
 
     test('should throw an exception of token expires', async () => {
@@ -115,7 +115,7 @@ describe('Reset password service test suite', () => {
             expect(err.message).toBe('Token expires, generate a new one.')
         }
 
-        expect(response).toBe(undefined)
+        expect(response).toBeUndefined()
     })
 
     test('should throw an error when update user with new password', async () => {
@@ -151,6 +151,6 @@ describe('Reset password service test suite', () => {
             expect(err.message).toBe('There was an error accessing database!')
         }
 
-        expect(response).toBe(undefined)
+        expect(response).toBeUndefined()
     })
 })

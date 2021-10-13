@@ -63,7 +63,7 @@ describe('Update user service test suite', () => {
             expect(err.message).toBe('User is not found!')
         }
 
-        expect(response).toBe(undefined)
+        expect(response).toBeUndefined()
     })
 
     test('should throw an exception of password incorrect', async () => {
@@ -92,6 +92,6 @@ describe('Update user service test suite', () => {
             expect(err.message).toBe('Error! Password incorrect!')
         }
 
-        expect(response).toBe(undefined)
+        expect(response).toBeUndefined()
     })
 })
