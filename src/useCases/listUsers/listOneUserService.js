@@ -2,7 +2,7 @@ const User = require('../../model/User')
 
 class ListOneUserService {
 
-    static async execute(id) {
+    async execute(id) {
         const user = await User.getSingleUser({ id })
 
         if (!user) {
