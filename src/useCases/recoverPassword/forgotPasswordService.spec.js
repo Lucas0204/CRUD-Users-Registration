@@ -1,5 +1,5 @@
 const { describe, test, expect, jest: mock } = require('@jest/globals')
-const forgotPasswordService = require('./forgotPasswordService')
+const ForgotPasswordService = require('./forgotPasswordService')
 const Queue = require('../../modules/Queue')
 const User = require('../../model/User')
 
@@ -23,7 +23,9 @@ describe('Forgot password service test suite', () => {
         mock.spyOn(Queue, Queue.queues.name)
             .mockResolvedValue([])
 
-        const response = await forgotPasswordService.execute(email)
+        const forgotPasswordService = new ForgotPasswordService(email)
+
+        const response = await forgotPasswordService.execute()
 
         expect(User.update).toHaveBeenCalled()
         expect(Queue.add).toHaveBeenCalled()
@@ -39,7 +41,8 @@ describe('Forgot password service test suite', () => {
         let response;
 
         try {
-            response = await forgotPasswordService.execute(email)
+            const forgotPasswordService = new ForgotPasswordService(email)
+            response = await forgotPasswordService.execute()
         } catch(err) {
             expect(err).toBeInstanceOf(Error)
             expect(err.message).toBe('User is not found!')
@@ -62,7 +65,8 @@ describe('Forgot password service test suite', () => {
         let response;
 
         try {
-            response = await forgotPasswordService.execute(email)
+            const forgotPasswordService = new ForgotPasswordService(email)
+            response = await forgotPasswordService.execute()
         } catch(err) {
             expect(err).toBeInstanceOf(Error)
             expect(err.message).toBe('There was an error accessing database!')
