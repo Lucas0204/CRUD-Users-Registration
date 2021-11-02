@@ -1,5 +1,5 @@
 const { describe, test, expect, jest: mock } = require('@jest/globals')
-const deleteUserService = require('./deleteUserService')
+const DeleteUserService = require('./deleteUserService')
 const User = require('../../model/User')
 
 describe('Delete user service test suite', () => {
@@ -10,6 +10,7 @@ describe('Delete user service test suite', () => {
         mock.spyOn(User, User.delete.name)
             .mockResolvedValue({})
 
+        const deleteUserService = new DeleteUserService()
         const res = await deleteUserService.execute(1)
 
         expect(User.getSingleUser).toHaveBeenCalled()
@@ -27,6 +28,7 @@ describe('Delete user service test suite', () => {
         let response;
 
         try {
+            const deleteUserService = new DeleteUserService()
             response = await deleteUserService.execute(1)
         } catch(err) {
             expect(err).toBeInstanceOf(Error)
@@ -48,6 +50,7 @@ describe('Delete user service test suite', () => {
         let response;
 
         try {
+            const deleteUserService = new DeleteUserService()
             response = await deleteUserService.execute(1)
         } catch(err) {
             expect(err).toBeInstanceOf(Error)
