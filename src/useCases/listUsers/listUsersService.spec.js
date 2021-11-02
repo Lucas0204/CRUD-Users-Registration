@@ -1,5 +1,5 @@
 const { describe, test, expect, jest: mock } = require('@jest/globals')
-const listUsersService = require('./listUsersService')
+const ListUsersService = require('./listUsersService')
 const User = require('../../model/User')
 
 describe('List users service test suite', () => {
@@ -26,6 +26,7 @@ describe('List users service test suite', () => {
         mock.spyOn(User, User.getAllUsers.name)
             .mockResolvedValue(mockUsers)
 
+        const listUsersService = new ListUsersService()
         const users = await listUsersService.execute()
 
         expect(User.getAllUsers).toHaveBeenCalled()
@@ -39,6 +40,7 @@ describe('List users service test suite', () => {
         let response;
 
         try {
+            const listUsersService = new ListUsersService()
             response = await listUsersService.execute()
         } catch(err) {
             expect(err).toBeInstanceOf(Error)
