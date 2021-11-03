@@ -1,6 +1,6 @@
 require('dotenv').config()
-const User = require('../../model/User')
-const Queue = require('../../modules/Queue')
+const User = require('../../../model/User')
+const Queue = require('../../../modules/Queue')
 const crypto = require('crypto')
 
 class ForgotPasswordService {

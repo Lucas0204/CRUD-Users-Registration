@@ -1,7 +1,7 @@
 const { describe, test, expect, jest: mock } = require('@jest/globals')
 const ForgotPasswordService = require('./forgotPasswordService')
-const Queue = require('../../modules/Queue')
-const User = require('../../model/User')
+const Queue = require('../../../modules/Queue')
+const User = require('../../../model/User')
 
 describe('Forgot password service test suite', () => {
     test('should send an email with token that will be used to change password', async () => {

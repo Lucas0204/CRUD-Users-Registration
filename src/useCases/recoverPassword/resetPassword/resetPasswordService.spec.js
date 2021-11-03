@@ -1,6 +1,6 @@
 const { describe, test, expect, jest: mock } = require('@jest/globals')
 const ResetPasswordService = require('./resetPasswordService')
-const User = require('../../model/User')
+const User = require('../../../model/User')
 
 describe('Reset password service test suite', () => {
     test('should update the user with new password', async () => {
