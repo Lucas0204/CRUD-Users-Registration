@@ -7,31 +7,26 @@ class CreateUserService {
     }
 
     async execute() {
-        this.validateData()
+        await this.validateData()
 
-        const { email } = this.data
+        const user = await this.createUser()
+        user.password = undefined
+
+        return user;
+    }
+
+    async validateData() {
+        const { name, email, password } = this.data
+
+        if (!name || !email || !password) {
+            throw new Error('Some field is missing!')
+        }
 
         const emailAlreadyExists = await User.exists(email)
 
         if (emailAlreadyExists) {
             throw new Error('Email is already exists!')
         }
-
-        const user = await this.createUser()
-
-        user.password = undefined
-
-        return user;
-    }
-
-    validateData() {
-        const { name, email, password } = this.data
-
-        if (!name) throw new Error('The name field is missing!')
-
-        if (!email) throw new Error('The email field is missing!')
-        
-        if (!password) throw new Error('The password field is missing!')
     }
 
     async createUser() {
