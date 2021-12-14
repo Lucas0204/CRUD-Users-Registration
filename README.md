@@ -4,9 +4,11 @@
 
 ### - About
 
-- This project was done with the backend in NodeJs and Express for the server. The database I used to register was MySQL and also Prisma to work with db.
+- This project was done with NodeJs and Express framework. The database I used to register was MySQL and also Prisma as ORM.
 
-- To handle the registrations and the manipulation of the database, I created the services folder that contains the files responsible for this. The controllers folder is only responsible for handling the request and sending it to services.
+- To handle the requests, I created the use cases layer that contains the folders responsible for each thing. Each one with one file of controller and one of service. The controller file just manages request and send the data to service, that in turn, communicates with the user model to perform the operation on database.
+
+- The user model was created just to abstract communication with the database to a separated module, and take responsibility away from the 'use cases' layer.
 
 - All tests were done through Insomnia, which makes requests for all methods.
 
